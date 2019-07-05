@@ -1,0 +1,370 @@
+
+body {
+	margin: 0 auto;
+    max-width: 960px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    color: #545454;
+    background-color: #ffffff; 
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+}
+
+header {
+	margin-top: 50px;
+	height: 35px;
+	text-align: center;
+	padding: 10px;
+	box-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+}
+
+nav {
+	position: fixed;
+	background: white;
+	width: 940px;
+	height: 30px;
+	text-align: center;
+	padding: 10px;
+	box-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+	z-index: 2;
+	top: 0px;
+}
+
+main {
+	box-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+}
+
+footer {
+	padding: 10px;
+	box-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+}
+
+.intro {
+	margin: auto;
+	padding: 10px;
+/*	box-shadow: 0 0 2px rgba(0, 0, 0, 0.8);*/
+	width: 700px;
+}
+
+.timeline-top {
+	padding: 1px;
+	text-align: center;
+	box-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+}
+
+.timeline-wrapper {
+	position: relative;
+	padding: 10px;
+	box-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+}
+
+.bubble {
+	
+	width: 350px;
+    background: white;
+    position: relative;
+    -moz-border-radius:    10px;
+    -webkit-border-radius: 10px;
+    border-radius:         10px;
+	box-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+	padding: 10px;
+	margin-left: 20px;
+}
+
+.bubble:before {
+	content:"";
+    position: absolute;
+    left: 100%;
+    top: 40px;
+    width: 0;
+    height: 0;
+    border-top: 13px solid transparent;
+    border-left: 26px solid ;
+    border-bottom: 13px solid transparent;
+}
+
+.bubble-right {
+	
+	width: 350px;
+    background: white;
+    position: relative;
+    -moz-border-radius:    10px;
+    -webkit-border-radius: 10px;
+    border-radius:         10px;
+	box-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+	padding: 10px;
+	margin-left:  560px;
+}
+
+.bubble-right:before {
+	content:"";
+    position: absolute;
+    right: 100%;
+    top: 40px;
+    width: 0;
+    height: 0;
+    border-top: 13px solid transparent;
+    border-right: 26px solid ;
+    border-bottom: 13px solid transparent;
+}
+
+#bubble1:after {
+	background: #545554; 	
+	color: white;
+	text-align: center;
+	content: "Ivan  Pavlov (1897)";
+    position: absolute;
+    left: 402px;
+	width: 90px;
+    top: 35px;
+	padding: 5px;
+	-moz-border-radius:    10px;
+    -webkit-border-radius: 10px;
+    border-radius:         10px;
+	
+}
+
+#bubble2:after {
+	background: #545554; 	
+	color: white;
+	text-align: center;
+	content: "Edward Thorndike (1905)";
+    position: absolute;
+    right: 408px;
+	width: 90px;
+    top: 25px;
+	padding: 5px;
+	-moz-border-radius:    10px;
+    -webkit-border-radius: 10px;
+    border-radius:         10px;
+}
+#bubble3:after {
+	background: #545554; 	
+	color: white;
+	text-align: center;
+	content: "Watson (1913)";
+    position: absolute;
+    left: 401px;
+	width: 90px;
+    top: 35px;
+	padding: 5px;
+	-moz-border-radius:    10px;
+    -webkit-border-radius: 10px;
+    border-radius:         10px;
+}
+
+#bubble4:after {
+	background: #545554;
+	color: white;
+	text-align: center;
+	content: "Watson and Rayner (1920)";
+    position: absolute;
+    right: 407px;
+	width: 90px;
+    top: 25px;
+	padding: 5px;
+	-moz-border-radius:    10px;
+    -webkit-border-radius: 10px;
+    border-radius:         10px;
+}
+
+#bubble5:after {
+	background: #545554; 	
+	color: white;
+	text-align: center;
+	content: "B.F. Skinner (1936)";
+    position: absolute;
+    left: 402px;
+	width: 90px;
+    top: 35px;
+	padding: 5px;
+	-moz-border-radius:    10px;
+    -webkit-border-radius: 10px;
+    border-radius:         10px;
+}
+
+#bubble6:after {
+	background: #545554;
+	color: white;
+	text-align: center;
+	content: "Clark Hull (1943)";
+    position: absolute;
+    right: 408px;
+	width: 90px;
+    top: 25px;
+	padding: 5px;
+	-moz-border-radius:    10px;
+    -webkit-border-radius: 10px;
+    border-radius:         10px;
+}
+
+#bubble7:after {
+	background: #545554; 	
+	color: white;
+	text-align: center;
+	content: "Albert Bandura (1963) ";
+    position: absolute;
+    left: 402px;
+	width: 90px;
+    top: 35px;
+	padding: 5px;
+	-moz-border-radius:    10px;
+    -webkit-border-radius: 10px;
+    border-radius:         10px;
+}
+
+#bubble8:after {
+	background: #545554; 	
+	color: white;
+	text-align: center;
+	content: "B.F. Skinner (1971)";
+    position: absolute;
+    right: 407px;
+	width: 90px;
+    top: 25px;
+	padding: 5px;
+	-moz-border-radius:    10px;
+    -webkit-border-radius: 10px;
+    border-radius:         10px;
+}
+
+
+#bar {
+	position: absolute;
+	width: 10px;
+	left: 477px;
+	height: 100%;
+	margin-top: -10px;
+	background: #545554;
+	z-index: -1;
+}
+
+
+
+li {
+	display: inline;
+	padding-right: 5px;
+}
+
+ul {
+	margin: 0px;
+	padding: 0px;
+	padding-top: 5px;
+}
+
+a:link {
+	color: #7f7f7f;
+	
+}
+
+a:visited {
+	color: #000000;
+}
+
+a:hover {
+	color: #b7b7b7;
+
+}
+
+a:active {
+	color: #000000;
+	text-decoration: none;
+}
+
+
+
+
+
+
+
+.question {
+	margin-left: 30px;
+	margin-top: -18px;
+	padding-left: 5px;
+}
+
+button {
+	-moz-box-shadow:inset 0px 0px 0px 0px #ffffff;
+	-webkit-box-shadow:inset 0px 0px 0px 0px #ffffff;
+	box-shadow:inset 0px 0px 0px 0px #ffffff;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf));
+	background:-moz-linear-gradient(top, #ededed 5%, #dfdfdf 100%);
+	background:-webkit-linear-gradient(top, #ededed 5%, #dfdfdf 100%);
+	background:-o-linear-gradient(top, #ededed 5%, #dfdfdf 100%);
+	background:-ms-linear-gradient(top, #ededed 5%, #dfdfdf 100%);
+	background:linear-gradient(to bottom, #ededed 5%, #dfdfdf 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf',GradientType=0);
+	background-color:#ededed;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	cursor:pointer;
+	color:#777777;
+	font-family:arial;
+	font-size:13px;
+	font-weight:bold;
+	padding:5px 12px;
+	text-decoration:none;
+	text-shadow:0px 0px 0px #ffffff;
+}
+button:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed));
+	background:-moz-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
+	background:-webkit-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
+	background:-o-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
+	background:-ms-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
+	background:linear-gradient(to bottom, #dfdfdf 5%, #ededed 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed',GradientType=0);
+	background-color:#dfdfdf;
+}
+button:active {
+	position:relative;
+	top:1px;
+}
+
+
+h1 {
+	margin: auto;
+}
+
+#timeline{
+	margin: 10px;
+	
+}
+
+#quiz {
+	display: none;
+	padding: 10px;
+}
+
+#scoreScreen {
+	display: none;
+	text-align: center;
+	marg
+}
+
+
+
+#quizIntro {
+	padding: 10px;
+	text-align: center;
+}
+
+#quizHeader {
+	margin-bottom: 10px;
+}
+
+#quizButton {
+	margin-top: 10px;
+}
+
+#score {
+	margin-bottom: 0px;
+	padding-bottom: 10px;
+}
+
+.footerH3 {
+	text-align: right;
+	margin-top: -46px;
+}

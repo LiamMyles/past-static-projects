@@ -1,0 +1,196 @@
+@charset "utf-8";
+/* CSS Document */
+
+.gallery
+{
+    margin:auto;
+	margin-top:10px;
+	margin-bottom:10px;
+	text-align:center;
+	width:auto;
+	min-height:620px;
+}
+
+#gallery_heading
+{
+	padding-left:10px;	
+}
+html 
+{
+	overflow-y: scroll;
+}
+
+body
+{
+	background-color:#000;
+	background-image:url(../images/background.jpg);
+	background-repeat:repeat-x;
+	margin:0px;
+}
+
+.container 
+{
+	font-family:Arial, Helvetica, sans-serif;
+	margin: auto;
+    text-align: left;
+    width: 800px;
+	background-color:#FFF;
+	border:1px solid #000;
+}
+
+.banner 
+{
+	text-align:center;
+	margin:0px;
+}
+
+.navbar
+{
+	font-family: 'Gabriela', arial, serif;
+	font-size:33px;
+	padding-left:10px;
+	padding-bottom:3px;
+	text-align:left;
+	height: 40px;
+	background-color:#666;
+}
+
+.sidebar
+{
+	padding-left: 10px;
+	padding-right:10px;
+	text-align:center;
+    width: 180px;
+	float:left;
+	min-height:700px;
+	border-right:1px solid #000;
+}
+
+.main
+{
+	margin-left:200px;
+	padding-left:10px;
+	padding-right:10px;
+	border-left:1px solid #000;
+}
+
+#main_item
+{
+	text-align:center;
+}
+
+#main_text
+{
+	border:1px solid #fff;
+	-webkit-user-select: none;
+}
+
+.footer
+{
+	clear:left;
+	padding:10px;
+	font-size:15px;
+	height: 10px;
+	background-color:#666666;
+	color:#FFFFFF;
+}
+
+#footer_text
+{
+	text-align:right;
+	margin:0px;
+	padding:0px;
+}
+
+#footer_left_text
+{
+	color:#000000;
+	text-align:left;
+	margin:0px;
+	padding:0px;
+}
+
+#footer_link
+{
+	float:left;
+	padding:0px;
+	margin:0px;
+}
+p
+{
+	text-align:left;
+}
+
+/* For Nav Bar */
+ul
+{
+	list-style-type:none;
+	margin:0;
+	padding:0;
+}
+
+li
+{
+	display:inline;
+}
+/* end of For Nav Bar */
+
+/* Links */
+a:link 
+{
+	color:#FFF;
+	text-decoration:none;
+	background-color:none;
+}   
+
+a:visited 
+{
+	color:#CCC;
+	text-decoration:none;
+	background-color:none;
+} 
+
+a:hover 
+{
+	color:#999999;
+	text-decoration:none;
+	background-color:none;
+}  
+
+a:active 
+{
+	color:#FFF;
+	text-decoration:none;
+	background-color:none;
+}  
+/*end of Links*/
+
+/* #main Links */
+#main_text a:link 
+{
+	color:#666;
+	text-decoration:none;
+	background-color:none;
+}   
+
+#main_text a:visited 
+{
+	color:#666;
+	text-decoration:none;
+	background-color:none;
+} 
+
+#main_text a:hover 
+{
+	color:#CCC;
+	text-decoration:none;
+	background-color:none;
+}  
+
+#main_text a:active 
+{
+	color:#666;
+	text-decoration:none;
+	background-color:none;
+}  
+/*end of Links #main */

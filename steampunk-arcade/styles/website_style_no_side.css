@@ -1,0 +1,255 @@
+@charset "utf-8";
+/* CSS Document */
+
+body
+{
+	margin:0px;
+	background-color:#3a2313;
+	background-image:url(../images/background.jpg);
+	background-repeat:repeat-y;
+	background-position:center; 
+}
+
+.container /*Outer most Div*/
+{
+	font-family:Arial, Helvetica, sans-serif;
+	margin: auto;
+    text-align: left;
+    width: 900px;
+	background-color:#3a2313;
+	background-image:url(../images/pipes.png), url(../images/leather_texture.jpg);/*Images are layered ontop of eachother*/
+	background-repeat:repeat-y, repeat;/*Pipes repeat y. texture repeats*/
+}
+
+.banner /*Steampunk Banner*/
+{
+	height:190px;
+	margin:0px;
+	background-image:url(../images/banner.jpg);
+	background-repeat:no-repeat;
+}
+
+
+.navbar/*Nav Bar Box*/
+{
+	text-align:left;
+	height:120px;
+	background-image:url(../images/links.jpg);
+	background-repeat:no-repeat;
+}
+
+.navlinks/*Nav Bar Links*/
+{
+	font-family:Arbutus,Arial, Helvetica, sans-serif;
+	color:#f5e5ce;
+	position:absolute;/*Lets text rest ontop of image*/
+	width:900px;
+	padding-top:48px;
+	padding-left:40px;
+	font-size:45px;
+	word-spacing:10px;
+}
+
+/*Navbar Link Display*/
+ul 
+{
+	list-style-type:none;
+	margin:0;
+	padding:0;
+}
+
+li /*Places Links in a Line*/
+{
+	display:inline-block;
+}
+/*End of Navbar Link Display*/
+
+.main/*Main Page Content*/
+{
+	margin-right:20px;margin-left:20px;margin-top:20px;margin-bottom:15px;/*Margins*/
+	padding:10px;padding-top:10px;/*Padding*/
+	min-height:800px;
+	width:840px;
+	background-color:#ffdd73;
+	opacity:0.9;
+	box-shadow: 3px 3px 3px #000;
+	float:left;
+}
+
+.sidebar/*Secondary Condtent Content*/
+{
+	display:none;
+}
+
+.footer/*Footer background*/
+{
+	height: 80px;
+	background-image:url(../images/footer.jpg);
+	background-repeat:no-repeat;
+	clear:both;
+}
+
+.footer_p/*Footer Text*/
+{
+	font-family:Arbutus, Arial, Helvetica, sans-serif;
+	color:#f9ca37;
+	font-size:20px;
+	padding-top:10px;
+	padding-left:450px;/*Absolute Position overrides Text Align*/
+	position:absolute;/*Lets text rest ontop of image*/
+}	
+
+
+/*Link Style*/
+a:link 
+{
+	color:#f9ca37;
+	text-decoration:none;
+	text-shadow:none;
+}   
+
+a:visited 
+{
+	text-decoration:none;
+	color:#ddcb8e;
+	text-shadow:none;
+} 
+
+a:hover 
+{
+	color:#f9ca37;
+	text-shadow: 3px 3px 5px black;
+}  
+
+a:active 
+{
+	color:#f9ca37;
+	text-decoration:none;
+	text-shadow:none;
+}  
+/*End of Links Style*/
+
+h2
+{
+	font-family:Arbutus,Arial, Helvetica, sans-serif;
+}
+
+/*Show and hide Text/Gallery*/
+.hide_mobile
+{
+	display:block;
+}
+
+.hide_web
+{
+	display:none;
+}
+/*Resizes the website for Mobile Devices*/
+@media screen and (max-width: 600px) 
+{
+	body
+{
+	margin:0px;
+	background-color:#3a2313;
+	background-image:none;
+	background-image:url(../images/background_small.jpg);
+	background-repeat:repeat-y;
+	background-position:center;
+}
+	
+	.container 
+{
+	font-family:Arial, Helvetica, sans-serif;
+	margin: auto;
+    text-align: left;
+    max-width: 450px;
+	background-color:#3a2313;
+	background-image:none;/*removes background images*/
+}
+	.banner 
+{
+	height:100px;
+	max-width:450;
+	margin:0px;
+	max-width:500;
+	background-image:none;/*removes background images*/
+	background-image:url(../images/banner_small.jpg);
+	background-repeat:no-repeat;
+}
+
+.swf/*For grp display use*/
+{
+	display:none;	
+}
+
+.navlinks/*Nav Bar Links*/
+{
+	font-family:Arbutus,Arial, Helvetica, sans-serif;
+	color:#f5e5ce;
+	position:absolute;/*Lets text rest ontop of image*/
+	width:450px;
+	padding:0px;
+	padding-top:5px;
+	padding-left:30px;
+	font-size:20px;
+	word-spacing:10px;
+}
+
+
+.navbar/*Nav Bar Box*/
+{
+	text-align:left;
+	max-height:40px;
+	max-width:450px;
+	background-image:none;/*removes background images*/
+	background-image:url(../images/links_small.jpg);
+	background-repeat:no-repeat;
+}
+
+.main
+{
+	margin:0px;
+	padding:10px;
+	min-height:800px;
+	max-width:430px;
+	background-color:#ffdd73;
+	opacity:1;/*Removes Opacity*/
+	box-shadow: none;/*Removes DropShadow*/
+	float:none;/*Removes Float*/
+}
+
+.sidebar
+{
+	display:none;
+}
+
+.footer
+{
+	height: 25px;
+	max-width:450px;
+	background-image:none;/*Removes Background*/
+	background-image:url(../images/footer_small.jpg);
+	background-repeat:no-repeat;
+}
+
+.footer_p	
+{
+	max-width:450px;
+	margin:0px;
+	padding:0px;/*Resets Padding*/
+	padding-top:5px;
+	padding-left:170px;
+	font-size:12px;
+	color:#f9ca37;
+}	
+
+/*Show and hide Text/Gallery*/
+.hide_mobile
+{
+	display:none;
+}
+
+.hide_web
+{
+	display:block;
+}

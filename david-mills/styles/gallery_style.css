@@ -1,0 +1,46 @@
+@charset "utf-8";
+/* CSS Document */
+
+ul
+{
+	list-style-type:none;
+	margin:0;
+	padding:0;
+}
+
+li
+{
+	display:inline;
+}
+
+.gallery_image
+{
+  margin: 5px;
+  border: 1px solid #000;
+  float: left;
+  text-align: center;
+}	
+.gallery_image img
+{
+  text-align: center;
+  display: inline;
+  margin: 5px;
+  border: 1px solid #fff;
+}
+.gallery_image a:hover img {border: 1px solid #333;}
+
+.image_text
+{
+  text-align: center;
+  width: 210px;
+  margin-bottom: 5px;
+}
+
+body
+{
+    font-family:Arial, Helvetica, sans-serif;
+	margin:auto;
+	text-align:center;
+	width:680px;
+
+}

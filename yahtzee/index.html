@@ -1,0 +1,958 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>It’s Almost Yahtzee!! Rules</title>
+<script language="javascript" type="text/javascript">
+/*Tutorials used for this project where mainly things from w3 schools, which was used for reffences and undersatnding of certen code
+Outside of w3 schools I used the follows
+Clearning an array = http://stackoverflow.com/questions/1232040/how-to-empty-an-array-in-javascript/8134354#8134354
+Adding to taking away from a dropbox  = http://asimsajjad.blogspot.ie/2008/12/dropdownlist-addremove-item-using.html
+*/
+
+
+var diceArray = [] //Holds the first dice roll
+var diceArray2 = []//Holds the second dice roll 
+var total = 0;//total of dice rolled
+var totalScore = []//Total of all scores over the 12 rounds
+var choiceEnd = 0;//Stops user adding two scores in one round
+var numRound = 1;//counts the round number
+var endScore = 0;//counts the final score
+var diceChecked = 0;//stops dice being checked twice, isnt required anymore
+var diceColour = "dice";//used to hold dice colour
+
+//Var's that are used to log when a score has been added so you cant have the same score twice.
+var sp1 = 0;
+var sp2 = 0;
+var sp3 = 0;
+var sp4 = 0;
+var sp5 = 0;
+var sp6 = 0;
+var s3oak = 0;
+var s4oak = 0;
+var sls = 0;
+var shs = 0;
+var syahtzee = 0;
+var schance = 0;
+
+function chanceColour(colour)//changes the dice colour to the one slected at the start
+	{
+		diceColour = colour;
+		document.getElementById("die0").src= diceColour +"_1.png";
+		document.getElementById("die1").src= diceColour +"_1.png";
+		document.getElementById("die2").src= diceColour +"_1.png";
+		document.getElementById("die3").src= diceColour +"_1.png";
+		document.getElementById("die4").src= diceColour +"_1.png";
+	}
+
+function changeStyle(style)//lets the user change the background
+	{
+		if( style == "styleA")
+			{		
+				document.getElementById("body").style.backgroundImage="url(background1.jpg)";//http://wallpaperstock.net/subtle-blue-pattern_wallpapers_37098_1920x1080_1.html
+			}
+		else if( style == "styleB")
+			{	
+				document.getElementById("body").style.backgroundImage="url(background2.jpg)";//http://wallpaperstock.net/gray-pattern_wallpapers_33810_1920x1080_1.html
+			}
+		else if( style == "styleC")
+			{	
+				document.getElementById("body").style.backgroundImage="url(background3.jpg)";//http://wallpaperstock.net/floral-pattern_wallpapers_32588_1920x1080_1.html
+			}
+		else if( style == "styleD")
+			{	
+				document.getElementById("body").style.backgroundImage="url(background4.jpg)";//http://wallpaperstock.net/simple-gray-pattern_wallpapers_36057_1920x1080_1.html
+			}
+	}
+function disableButtons()//disables the buttons when the body loads, also hides the game and restart button
+	{
+		document.getElementById("rollDice2").disabled = true;
+		document.getElementById("checkDice").disabled = true;
+		document.getElementById("scores").disabled = true;
+		document.getElementById("newRound").disabled = true;
+		document.getElementById("noMatches").style.display="none";
+		document.getElementById("holdDiceBoxes").style.display="none";
+		document.getElementById("game").style.display="none";
+		document.getElementById("restart").style.display="none";
+	}
+
+function startGame(yes)//starts the game by hiding the rules and showing the game
+	{
+		if( yes == 1)
+			{
+				alert("Oh well, you still have to play O_O");
+				document.getElementById("game").style.display=""
+				document.getElementById("rules").style.display="none"
+			}
+		else
+			{
+				document.getElementById("game").style.display=""
+				document.getElementById("rules").style.display="none"
+			}
+	}
+
+
+function rollDice1()//rolls dice
+	{
+		document.getElementById("rollDice1").disabled = true;//for button disable cycle 
+		document.getElementById("rollDice2").disabled = false;//for button disable cycle 
+		for (i=0;i<5;i++)//loop that will roll all 5 dice
+			{
+				var die = "die" + i;//var that changes which dice is rolled with each loop
+				diceRoll = Math.ceil(Math.random()*6);//Creates an array of the dice rolled
+				diceArray.push(diceRoll);
+				document.getElementById(die).src= diceColour +"_"+diceRoll+".png";//picks a random number between 0 and 5 and replaced the image.
+			}
+		document.getElementById("holdDiceBoxes").style.display=""
+	}
+	
+	
+function rollDice2()//rolls dice
+	{
+		document.getElementById("rollDice2").disabled = true;//for button disable cycle 
+		document.getElementById("checkDice").disabled = false;//for button disable cycle 
+		document.getElementById("holdDiceBoxes").style.display="none"
+		for (i=0;i<5;i++)//loop that will roll all 5 dice
+			{
+				
+				var hold = "hold" + i;//var that checks if a dice is held
+				var die = "die" + i;//var that changes which dice is rolled with each loop	
+				if(document.getElementById(hold).checked)//checks if the hold box is checked if checked it skips that item/ 
+					{	
+						var holdArray = diceArray.slice(i,i+1);//takes the checked number and adds it to a new array
+						var numed = Number(holdArray);//turns the slice string into a number to be used to later calations
+						diceArray2.push(numed);//pushed the new array onto the second rolls	Array: bascily this persrves 
+						continue;
+					}
+				diceRoll = Math.ceil(Math.random()*6);//Creates an array of the dice rolled
+				diceArray2.push(diceRoll);	
+				document.getElementById(die).src= diceColour +"_"+diceRoll+".png";//picks a random number between 0 and 5 and replaced the image.	
+			}
+	}
+	
+	
+function checkDice()//checks what the dice are and if any combonations are rolled they are added to a dropdown box
+	{
+		document.getElementById("checkDice").disabled = true;//for button disable cycle 
+		document.getElementById("scores").disabled = false;//for button disable cycle 
+		
+		diceArray2.sort();//Sorts the dice array to check matches with greater ease
+		var string = diceArray2.toString();//Turns the dice array into a string so I can use the .match function of a string to determine how many times an item repeats
+		if (diceChecked == 0)//pervents check adding total more than once per round.
+			{
+				//alert("adding total");
+				for (var i =0; i < diceArray2.length; i++)//adds all of the rolls togeather 
+					{
+						total+= diceArray2[i]	
+						//alert(total + " " + diceArray2);		
+					}
+			}
+		
+		diceChecked++;
+		
+		var one = string.match(/1/g);//Checks how many times that number appears in the string. 
+		var two = string.match(/2/g);
+		var three = string.match(/3/g);
+		var four = string.match(/4/g);
+		var five = string.match(/5/g);
+		var six = string.match(/6/g);
+		
+		var matches = new Array (one,two,three,four,five,six);//an array of all the match var's
+		if(sls == 0)//checks if this score has already been loged
+			{
+				if (string == [1,2,3,4,5])//function to check straight, this is why I have used .sort on the array.
+					{
+						//alert("It worked! " + "Low Straight " + string);
+						var newOption = document.createElement("option");//adds a new option to the dropdox so user can pick their score
+						newOption.text = "Low Straight";
+						newOption.value = "lStraight";
+						scores.options.add(newOption);
+					}
+			}
+		if(shs == 0)//checks if this score has already been loged
+			{
+				if (string == [2,3,4,5,6])
+					{
+						//alert("It worked! " + "high Straight " + string);
+						var newOption = document.createElement("option");//adds a new option to the dropdox so user can pick their score
+						newOption.text = "High Straight";
+						newOption.value = "hStraight";
+						scores.options.add(newOption);
+					}
+			}
+	for (var i=0; i < matches.length;i++)//a for loop that checks each var of the array and checks its length to determine how many times a number repeats
+		{
+			if (matches[i] == null)//this piece of code skips over any nulls because they where breaking the loop. Nulls ocouried when the match length was 0
+				{
+					continue;	
+				}
+			 if(syahtzee == 0)//checks if this score has already been loged
+				{
+					if (matches[i].length == 5)//Checks for a Yahtzee
+						{
+							//alert("It worked! " + "Yahtzee!! " + matches[i]);
+							var newOption = document.createElement("option");//adds a new option to the dropdox so user can pick their score
+							newOption.text = "Yahtzee!";
+							newOption.value = "yahtzee";
+							scores.options.add(newOption);
+						}	
+				}
+			 if(s4oak == 0)//checks if this score has already been loged
+				{
+					if (matches[i].length >= 4)//Checks for 4 of a Kind
+						{
+							//alert("It worked! " + "you have 4 of a kind" + matches[i]);
+							var newOption = document.createElement("option");//adds a new option to the dropdox so user can pick their score
+							newOption.text = "Four of a Kind!";
+							newOption.value = "4oak";
+							scores.options.add(newOption);
+						}
+				}
+			 if(s3oak == 0)//checks if this score has already been loged
+				{
+					if (matches[i].length >= 3)//Checks for 3 of a kind
+						{
+							//alert("It worked! " + "you have 3 of a kind " + matches[i]);
+							var newOption = document.createElement("option");//adds a new option to the dropdox so user can pick their score
+							newOption.text = "Three of a Kind!";
+							newOption.value = "3oak";
+							scores.options.add(newOption);
+						}
+				}
+			 if (matches[i].length >= 2)//if there is a pair
+				{	
+					if(sp1 == 0)//checks if this score has already been loged
+						{
+							if(i == 0)//checks which pair has been rolled, if two have been rolled this also lets you decide which pair to use.
+								{
+									//alert("Pair of 1's");
+									//code taken from http://asimsajjad.blogspot.ie/2008/12/dropdownlist-addremove-item-using.html
+									var newOption = document.createElement("option");//adds a new option to the dropdox so user can pick their score
+									newOption.text = "Pair of Ones";
+									newOption.value = "1s";
+									scores.options.add(newOption);
+		
+								}
+						}
+					 if(sp2 == 0)//checks if this score has already been loged
+						{
+							if(i == 1)
+								{
+									//alert("Pair of 2's");
+									//code taken from http://asimsajjad.blogspot.ie/2008/12/dropdownlist-addremove-item-using.html
+									var newOption = document.createElement("option");//adds a new option to the dropdox so user can pick their score
+									newOption.text = "Pair of Twos";
+									newOption.value = "2s";
+									scores.options.add(newOption);
+									
+								}
+						}
+					 if(sp3 == 0)//checks if this score has already been loged
+						{
+							if(i == 2)
+								{
+									//alert("Pair of 3's");
+									//code taken from http://asimsajjad.blogspot.ie/2008/12/dropdownlist-addremove-item-using.html
+									var newOption = document.createElement("option");//adds a new option to the dropdox so user can pick their score
+									newOption.text = "Pair of Threes";
+									newOption.value = "3s";
+									scores.options.add(newOption);
+								}
+						}
+					 if(sp4 == 0)//checks if this score has already been loged
+							{	
+								if(i == 3)
+									{
+										//alert("Pair of 4's");
+										//code taken from http://asimsajjad.blogspot.ie/2008/12/dropdownlist-addremove-item-using.html
+										var newOption = document.createElement("option");//adds a new option to the dropdox so user can pick their score
+										newOption.text = "Pair of Fours";
+										newOption.value = "4s";
+										scores.options.add(newOption);
+									}
+							}
+					 if(sp5 == 0)//checks if this score has already been loged
+						{
+							if(i == 4)
+								{
+									//alert("Pair of 5's");
+									//code taken from http://asimsajjad.blogspot.ie/2008/12/dropdownlist-addremove-item-using.html
+									var newOption = document.createElement("option");//adds a new option to the dropdox so user can pick their score
+									newOption.text = "Pair of Fives";
+									newOption.value = "5s";
+									scores.options.add(newOption);
+								}
+						}
+					 if(sp6 == 0)//checks if this score has already been loged
+						{
+							if(i == 5)
+								{
+									//alert("Pair of 6's");
+									//code taken from http://asimsajjad.blogspot.ie/2008/12/dropdownlist-addremove-item-using.html
+									var newOption = document.createElement("option");//adds a new option to the dropdox so user can pick their score
+									newOption.text = "Pair of Sixes";
+									newOption.value = "6s";
+									scores.options.add(newOption);
+								}
+						}
+				}
+		}
+	}
+
+function addScores(score)//adds scores to the scoreboard depending on what the user picks
+	{
+		document.getElementById("scores").disabled = true;//for button disable cycle 
+		document.getElementById("newRound").disabled = false;//for button disable cycle 
+		if(choiceEnd == 0)
+			{
+				//alert(score);
+				if(score == "blank")
+					{
+						alert("Please Choose a Score or No Match");
+						return false;	
+					}
+				else if (score == "noMatch")//creates a new dropdown box of all the scores that havent been choses yet, this lets the user add 0 to one of the boxes
+					{
+						//alert("No Match");
+						document.getElementById("noMatches").style.display=""
+						document.getElementById("newRound").disabled = true;
+						
+						var newOption = document.createElement("option");//adds a new option to the dropdox so user can pick their score
+						newOption.text = "Score 0 on?";
+						newOption.value = "blank";
+						noMatches.options.add(newOption);
+							
+							if (schance == 0)
+								{
+									var newOption = document.createElement("option");//adds a new option to the dropdox so user can pick their score
+									newOption.text = "Chance";
+									newOption.value = "chance";
+									noMatches.options.add(newOption);
+								}
+							
+							if (syahtzee == 0)
+								{
+									var newOption = document.createElement("option");//adds a new option to the dropdox so user can pick their score
+									newOption.text = "Yahtzee";
+									newOption.value = "yahtzee";
+									noMatches.options.add(newOption);
+								}
+							
+							if( shs == 0)
+								{
+									var newOption = document.createElement("option");//adds a new option to the dropdox so user can pick their score
+									newOption.text = "High Straight";
+									newOption.value = "hStraight";
+									noMatches.options.add(newOption);
+								}
+							
+							if (sls == 0)
+								{
+									var newOption = document.createElement("option");//adds a new option to the dropdox so user can pick their score
+									newOption.text = "Low Straight";
+									newOption.value = "lStraight";
+									noMatches.options.add(newOption);
+								}
+							
+							if (sp1 == 0)
+								{
+									var newOption = document.createElement("option");//adds a new option to the dropdox so user can pick their score
+									newOption.text = "Pair of Ones";
+									newOption.value = "1s";
+									noMatches.options.add(newOption);
+								}
+								
+							if (sp2 == 0)
+								{
+									var newOption = document.createElement("option");//adds a new option to the dropdox so user can pick their score
+									newOption.text = "Pair of Twos";
+									newOption.value = "2s";
+									noMatches.options.add(newOption);
+								}
+							
+							if (sp3 == 0)
+								{
+									var newOption = document.createElement("option");//adds a new option to the dropdox so user can pick their score
+									newOption.text = "Pair of Threes";
+									newOption.value = "3s";
+									noMatches.options.add(newOption);
+								}
+								
+							if (sp4 == 0)
+								{
+									var newOption = document.createElement("option");//adds a new option to the dropdox so user can pick their score
+									newOption.text = "Pair of Fours";
+									newOption.value = "4s";
+									noMatches.options.add(newOption);
+								}
+							if (sp5 == 0)
+								{
+									var newOption = document.createElement("option");//adds a new option to the dropdox so user can pick their score
+									newOption.text = "Pair of Fives";
+									newOption.value = "5s";
+									noMatches.options.add(newOption);
+								}
+							if (sp6 == 0)
+								{
+									var newOption = document.createElement("option");//adds a new option to the dropdox so user can pick their score
+									newOption.text = "Pair of Sixes";
+									newOption.value = "6s";
+									noMatches.options.add(newOption);
+								}
+							if (s3oak == 0)
+								{
+									var newOption = document.createElement("option");//adds a new option to the dropdox so user can pick their score
+									newOption.text = "Three of a kind";
+									newOption.value = "3oak";
+									noMatches.options.add(newOption);
+								}
+								
+							if (s4oak == 0)
+								{
+									var newOption = document.createElement("option");//adds a new option to the dropdox so user can pick their score
+									newOption.text = "Four of a kind";
+									newOption.value = "4oak";
+									noMatches.options.add(newOption);
+								}
+												
+						return true;
+					}
+				else if (score == "chance")
+					{
+						//all these comments apply to all the below
+						schance =+ 1;//stops this from being scored twice
+						document.getElementById("chance").innerHTML=(total)//adds score to scoreborad
+						document.getElementById("chance").style.backgroundColor = "#CCFF33";//changes colour of box
+						totalScore.push(total);//adds total to an array for later use
+						choiceEnd =+ 1;//stops a second choice, was reqired before box got disable after choice 
+						return true;
+					}
+				else if (score == "1s")
+					{
+						//alert("Pair of Ones");
+						document.getElementById("pairOnes").innerHTML=(2);
+						document.getElementById("pairOnes").style.backgroundColor = "#CCFF33";
+						sp1 =+ 1;
+						totalScore.push(2);
+						choiceEnd =+ 1;
+						return true;
+					}
+				else if (score == "2s")
+					{
+						//alert("Pair of Twos");
+						document.getElementById("pairTwos").innerHTML=(4);
+						document.getElementById("pairTwos").style.backgroundColor = "#CCFF33";
+						sp2 =+ 1;
+						totalScore.push(4);
+						choiceEnd =+ 1;
+						return true;
+					}
+				else if (score == "3s")
+					{
+						//alert("Pair of Threes");
+						document.getElementById("pairThrees").innerHTML=(6);
+						document.getElementById("pairThrees").style.backgroundColor = "#CCFF33";
+						sp3 =+ 1;
+						totalScore.push(6);
+						choiceEnd =+ 1;
+						return true;
+					}
+				else if (score == "4s")
+					{
+						//alert("Pair of Fours");
+						document.getElementById("pairFours").innerHTML=(8);
+						document.getElementById("pairFours").style.backgroundColor = "#CCFF33";
+						sp4 =+ 1;
+						totalScore.push(8);
+						choiceEnd =+ 1;
+						return true;
+					}
+				else if (score == "5s")
+					{
+						//alert("Pair of Fives");
+						document.getElementById("pairFives").innerHTML=(10);
+						document.getElementById("pairFives").style.backgroundColor = "#CCFF33";
+						sp5 =+ 1;
+						totalScore.push(10);
+						choiceEnd =+ 1;
+						return true;
+					}
+				else if (score == "6s")
+					{
+						//alert("Pair of Sixes");
+						document.getElementById("pairSixes").innerHTML=(12);
+						document.getElementById("pairSixes").style.backgroundColor = "#CCFF33";
+						sp6 =+ 1;
+						totalScore.push(12);
+						choiceEnd =+ 1;
+						return true;
+					}
+				else if (score == "3oak")
+					{
+						//alert("Three Of a Kind");
+						document.getElementById("3oak").innerHTML=(total);
+						document.getElementById("3oak").style.backgroundColor = "#CCFF33";
+						s3oak =+ 1;
+						totalScore.push(total);
+						choiceEnd =+ 1;
+						return true;
+					}
+				else if (score == "4oak")
+					{
+						//alert("Four Of a Kind");
+						document.getElementById("4oak").innerHTML=(total);
+						document.getElementById("4oak").style.backgroundColor = "#CCFF33";
+						s4oak =+ 1;
+						totalScore.push(total);
+						choiceEnd =+ 1;
+						return true;
+					}
+				else if (score == "yahtzee")
+					{
+						//alert("Yahtzee");
+						document.getElementById("yahtzee").innerHTML=(50);
+						document.getElementById("yahtzee").style.backgroundColor = "#CCFF33";
+						syahtzee =+ 1;
+						totalScore.push(50);
+						choiceEnd =+ 1;
+						return true;
+					}
+				else if (score == "lStraight")
+					{
+						//alert("Low STraight!");
+						document.getElementById("lStraight").innerHTML=(30);
+						document.getElementById("lStraight").style.backgroundColor = "#CCFF33";
+						sls =+ 1;
+						totalScore.push(30);
+						choiceEnd =+ 1;
+						return true;
+					}
+				else if (score == "hStraight")
+					{
+						//alert("High Straight");
+						document.getElementById("hStraight").innerHTML=(40);
+						document.getElementById("hStraight").style.backgroundColor = "#CCFF33";
+						shs =+ 1;
+						totalScore.push(40);
+						choiceEnd =+ 1;
+						return true;
+					}
+			}
+	}
+
+function noMatchFn(score)//scores 0 depending on the choice from the no match selection
+	{	
+		document.getElementById("noMatches").style.display="none"//for button disable cycle 
+		document.getElementById("newRound").disabled = false;//for button disable cycle 
+		if(score == "blank")
+					{
+						//alert("Please Choose a Score or No Match");
+						return false;	
+					}
+		
+		else if (score == "chance")
+					{
+						//alert("You Chose Chance");
+						schance =+ 1;
+						document.getElementById("chance").innerHTML=(0)
+						document.getElementById("chance").style.backgroundColor = "#ff3300";
+						choiceEnd =+ 1;
+						return true;
+					}
+				else if (score == "1s")
+					{
+						//alert("Pair of Ones");
+						document.getElementById("pairOnes").innerHTML=(0);
+						document.getElementById("pairOnes").style.backgroundColor = "#ff3300";
+						sp1 =+ 1;
+						choiceEnd =+ 1;
+						return true;
+					}
+				else if (score == "2s")
+					{
+						//alert("Pair of Twos");
+						document.getElementById("pairTwos").innerHTML=(0);
+						document.getElementById("pairTwos").style.backgroundColor = "#ff3300";
+						sp2 =+ 1;
+						choiceEnd =+ 1;
+						return true;
+					}
+				else if (score == "3s")
+					{
+						//alert("Pair of Threes");
+						document.getElementById("pairThrees").innerHTML=(0);
+						document.getElementById("pairThrees").style.backgroundColor = "#ff3300";
+						sp3 =+ 1;
+						choiceEnd =+ 1;
+						return true;
+					}
+				else if (score == "4s")
+					{
+						//alert("Pair of Fours");
+						document.getElementById("pairFours").innerHTML=(0);
+						document.getElementById("pairFours").style.backgroundColor = "#ff3300";
+						sp4 =+ 1;
+						choiceEnd =+ 1;
+						return true;
+					}
+				else if (score == "5s")
+					{
+						//alert("Pair of Fives");
+						document.getElementById("pairFives").innerHTML=(0);
+						document.getElementById("pairFives").style.backgroundColor = "#ff3300";
+						sp5 =+ 1;
+						choiceEnd =+ 1;
+						return true;
+					}
+				else if (score == "6s")
+					{
+						//alert("Pair of Sixes");
+						document.getElementById("pairSixes").innerHTML=(0);
+						document.getElementById("pairSixes").style.backgroundColor = "#ff3300";
+						sp6 =+ 1;
+						choiceEnd =+ 1;
+						return true;
+					}
+				else if (score == "3oak")
+					{
+						//alert("Three Of a Kind");
+						document.getElementById("3oak").innerHTML=(0);
+						document.getElementById("3oak").style.backgroundColor = "#ff3300";
+						s3oak =+ 1;
+						choiceEnd =+ 1;
+						return true;
+					}
+				else if (score == "4oak")
+					{
+						//alert("Four Of a Kind");
+						document.getElementById("4oak").innerHTML=(0);
+						document.getElementById("4oak").style.backgroundColor = "#ff3300";
+						s4oak =+ 1;
+						choiceEnd =+ 1;
+						return true;
+					}
+				else if (score == "yahtzee")
+					{
+						//alert("Yahtzee");
+						document.getElementById("yahtzee").innerHTML=(0);
+						document.getElementById("yahtzee").style.backgroundColor = "#ff3300";
+						syahtzee =+ 1;
+						choiceEnd =+ 1;
+						return true;
+					}
+				else if (score == "lStraight")
+					{
+						//alert("Low STraight!");
+						document.getElementById("lStraight").innerHTML=(0);
+						document.getElementById("lStraight").style.backgroundColor = "#ff3300";
+						sls =+ 1;
+						choiceEnd =+ 1;
+						return true;
+					}
+				else if (score == "hStraight")
+					{
+						//alert("High Straight");
+						document.getElementById("hStraight").innerHTML=(0);
+						document.getElementById("hStraight").style.backgroundColor = "#ff3300";
+						shs =+ 1;
+						choiceEnd =+ 1;
+						return true;
+					}	
+					
+
+	}
+
+function newRound()//starts a new round. Adds 1 to the round counter as well as reseting any values changes to stop repeating
+	{	
+		document.getElementById("newRound").disabled = true;
+		document.getElementById("rollDice1").disabled = false;
+	
+		choiceEnd =- 0;
+		choiceMatch =- 0;
+		numRound++;
+		total =- 0;
+		diceChecked =- 0;
+		
+		if(numRound == 13)
+			{	
+				document.getElementById("restart").style.display=""
+				for (var i =0; i < totalScore.length; i++)//adds all of the roll scores togeather
+					{
+						endScore+= totalScore[i]		
+					}
+				//alert("Your Final score is " +endScore + " Congratz!!")
+				document.getElementById("round").innerHTML= "Your Final Score is " + endScore + " out of 252," + " Congratulations " + document.getElementById("userName").value;
+				document.getElementById("rollDice1").disabled = true;//Stops extra rounds
+				return true;
+			}	
+		
+		for (i=0;i<5;i++)//loop that will reset the checks on the checkboxes
+			{
+				
+				var hold = "hold" + i;//var that checks if a dice is held
+				if(document.getElementById(hold).checked)//checks if the hold box is checked if checked it resets it
+					{	
+						document.getElementById(hold).checked = false;
+					}	
+			}
+		
+		
+		
+		document.getElementById("round").innerHTML= "Round " + numRound;
+					
+		var dArray= diceArray.length;
+		for (var erase = dArray; erase >0; erase--)//wipes diceArray
+			{
+				diceArray.shift();	
+			}	
+	
+		var dArray2= diceArray2.length;
+		for (var erase = dArray2; erase >0; erase--)//wipes diceArray2
+			{
+				diceArray2.shift();	
+			}
+		
+		//code taken from http://asimsajjad.blogspot.ie/2008/12/dropdownlist-addremove-item-using.html
+		var intTotalItems= scores.options.length;//wipes the dropbox
+		for(var intCounter=intTotalItems;intCounter>=0;intCounter--)
+			{
+				 scores.remove(intCounter);
+	 		}
+		var totalMatches= noMatches.options.length;//wipes the dropbox
+		for(var intCounter=totalMatches;intCounter>=0;intCounter--)
+			{
+				 noMatches.remove(intCounter);
+	 		}
+		
+		var newOption = document.createElement("option");//adds a new option to the dropdox so user can pick their score
+		newOption.text = "Pick Score";
+		newOption.value = "blank";
+		scores.options.add(newOption);
+		
+		var newOption2 = document.createElement("option");//adds a new option to the dropdox so user can pick their score
+		newOption2.text = "No Matches";
+		newOption2.value = "noMatch";
+		scores.options.add(newOption2);
+		
+		if (schance == 0)
+			{
+				var newOption3 = document.createElement("option");//adds a new option to the dropdox so user can pick their score
+				newOption3.text = "Chance";
+				newOption3.value = "chance";
+				scores.options.add(newOption3);
+			}
+	}
+
+function restartGame()//restarts the game
+	{
+		location.reload();
+	}
+	
+
+</script>
+<style type="text/css">
+body
+{
+	background-image:url(background1.jpg);
+	font-family:Arial, Helvetica, sans-serif;
+	margin:auto;
+	text-align:center;
+	width: 700px;
+}
+
+#tables
+{
+	text-align:center;
+	margin:auto;
+	width:375px;
+	padding:0px;
+}
+
+#table1
+{
+	float:left;
+	margin-right:20px;
+}
+
+#table2
+{
+	margin-bottom:20px;
+}
+
+.pDice
+{
+	float:none;
+	width: 700px;
+}
+
+.ruleH3
+{
+	text-align:left;
+}
+
+.table, th, td
+{
+	border: 2px solid black;
+	border-collapse:collapse;
+	padding:2px;
+	background-color:#CCC;
+}
+</style>
+</head>
+
+<body onload="disableButtons()" id="body"> 
+	<div id="rules">
+    	<h1 class="ruleH1">
+			It’s Almost Yahtzee!! Rules    
+    	</h1>
+        <h3 class="ruleH3">
+        	Yahtzee is a dice-rolling game with the aim of rolling poker-style combinations with dice. There are a total of 12 rounds, and your goal is to gain the highest possible score.
+        </h3>
+        <h2>
+        	The Scoring
+        </h2>
+        <h3 class="ruleH3">
+			There are two scoreboards, Lower and Upper. Lower consists of every combination of pairs. Upper consists of Three/Four of a Kind, Low/High Straights, Yahtzee, and Chance. Three/Four of a Kind are the same dice three/four times, respectively. A Straight is consecutive numbers in a row. A Low Straight is 1,2,3,4,5, while a High Straight would be 6,5,4,3,2. A Yahtzee is 5 of the same number in a row, and Chance is every die added together.
+        </h3>
+        <h2>
+        	The Buttons
+        </h2>
+        <h3 class="ruleH3">
+        	The buttons will be disabled depending on what action is appropriate at the time. You get two rolls; on the second roll, you are able to hold any dice you want to keep and to roll the rest. You can then check your dice and select which score you would like to choose. After you select your score, the round ends.
+        </h3>
+        <h2>
+        	No Match
+        </h2>
+        <h3 class="ruleH3">
+        	When there is no match, a separate box will appear, which will require you to put a 0 into the selected score box. 
+        </h3>
+        <h2 class="ruleH3">
+        	Select your dice colour and Name
+        </h2>
+        <h3 class="ruleH3">
+        Name: <input type="text" name="Santa" id="userName" value=""><!-- name input feild -->
+        	<form id="diceColourChange"><!-- radio selection for dice colour -->
+            	<input type="radio" name="diceColour" value="dice" onchange="chanceColour(this.value)"> White Dice<br>
+            	<input type="radio" name="diceColour" value="bdice" onchange="chanceColour(this.value)"> Blue Dice<br>
+                <input type="radio" name="diceColour" value="rdice" onchange="chanceColour(this.value)"> Red Dice<br>
+                <input type="radio" name="diceColour" value="gdice" onchange="chanceColour(this.value)"> Green Dice<br>
+			</form>
+        </h3><!-- Buttons that start the game -->
+        <input type="button" value="I Understand" onclick="startGame(0)">
+        <input type="button" value="I Don't Understand!" onclick="startGame(1)">
+	</div>
+    <div id="game">
+        <div id="tables">   <!-- Table that holds scores -->    
+        <table id="table1" class="table">
+                <caption> Upper Scores</caption>
+                <th>Type of Score</th>
+                <th>Score</th>
+                <tr>
+                    <td>Three of a Kind</td>
+                    <td id="3oak">#</td>
+                </tr>
+                <tr>
+                    <td>Four of a Kind</td>
+                    <td id="4oak">#</td>
+                </tr>
+                <tr>
+                    <td>Low Straight</td>
+                    <td id="lStraight">#</td>
+                </tr>
+                <tr>
+                    <td>High Straight</td>
+                    <td id="hStraight">#</td>
+                </tr>
+                <tr>
+                    <td>Yahtzee</td>
+                    <td id="yahtzee">#</td>
+                </tr>
+                <tr>
+                    <td>Chance</td>
+                    <td id="chance">#</td>
+                </tr>
+                </table>
+                
+        <table id="table2" class="table">
+                <caption> Lower Scores</caption>
+                <th>Type of Score</th>
+                <th>Score</th>
+                <tr>
+                    <td>Pair of Ones</td>
+                    <td id="pairOnes">#</td>
+                </tr>
+                <tr>
+                    <td>Pair of Twos</td>
+                    <td id="pairTwos">#</td>
+                </tr>
+                <tr>
+                    <td>Pair of Threes</td>
+                    <td id="pairThrees">#</td>
+                </tr>
+                <tr>
+                    <td>Pair of Fours</td>
+                    <td id="pairFours">#</td>
+                </tr>
+                <tr>
+                    <td>Pair of Fives</td>
+                    <td id="pairFives">#</td>
+                </tr>
+                <tr>
+                    <td>Pair of Sixes</td>
+                    <td id="pairSixes">#</td>
+                </tr>
+                </table>
+                <h3>
+                Style Your Scoreboard
+                </h3>
+                <form id="diceColourChange"><!-- Radio Buttons that select style -->
+                    <input type="radio" name="changeS" value="styleA" onchange="changeStyle(this.value)"> Style A
+                    <input type="radio" name="changeS" value="styleB" onchange="changeStyle(this.value)"> Style B
+                    <input type="radio" name="changeS" value="styleC" onchange="changeStyle(this.value)"> Style C
+                    <input type="radio" name="changeS" value="styleD" onchange="changeStyle(this.value)"> Style D
+				</form>
+<!--<input name="table" type="radio" value="1" onchange="style(this.value)"/>Style 1
+<input name="table" type="radio" value="2" onchange="style(this.value)"/>Style 2
+<input name="table" type="radio" value="3" onchange="style(this.value)"/>Style 3
+<input name="table" type="radio" value="4" onchange="style(this.value)"/>Style 4-->
+        </div>
+        <div id="pDice"><!-- Dice Images -->
+        <img id="die0" src="dice_1.png"/>
+        <img id="die1" src="dice_1.png"/>
+        <img id="die2" src="dice_1.png"/>
+        <img id="die3" src="dice_1.png"/>
+        <img id="die4" src="dice_1.png"/>
+        </div>
+        
+        <div id="holdDiceBoxes"><!-- Hold Checkboxes -->
+        <input type="checkbox" id="hold0">Hold Dice 1
+        <input type="checkbox" id="hold1">Hold Dice 2
+        <input type="checkbox" id="hold2">Hold Dice 3
+        <input type="checkbox" id="hold3">Hold Dice 4
+        <input type="checkbox" id="hold4">Hold Dice 5
+        </div>
+        
+        
+        <input type="button" value="First Roll" id="rollDice1" onclick="rollDice1()"><!-- rolls and check buttons -->
+        <input type="button" value="Second Roll" id="rollDice2" onclick="rollDice2()">
+        <input type="button" value="Check" id="checkDice" onclick="checkDice()">
+        
+        <select id="scores" onchange="addScores(this.value)"><!-- score selection box -->
+          <option value="blank">Pick Score</option>
+          <option value="noMatch">No Matches</option>
+          <option value="chance">Chance</option>
+        </select>
+        
+        <select id="noMatches" onchange="noMatchFn(this.value)"><!-- no match slection box -->
+        
+        </select>
+        
+        <input type="button" value="Next Round" id="newRound" onclick="newRound()"><!-- new round button -->
+        
+        <h1 id="round">
+        Round 1
+        </h1>
+        	 <input type="button" value="Play Again" id="restart" onclick="restartGame()"><!-- restart Button -->
+	</div>
+</body>
+</html>

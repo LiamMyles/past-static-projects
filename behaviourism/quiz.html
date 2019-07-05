@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>Behaviourism Quiz</title>
+	<meta name="description" content="Behaviourism Quiz">
+	<link rel="stylesheet" href="css/main.css">
+	<script language="JavaScript" src="javascript/quiz.js"></script>
+</head>
+
+<body>
+	<nav>
+		<ul>
+  			<li><a href="index.html">Home Page</a></li>
+		</ul>
+	</nav>
+	
+	<header>
+		<h1>Behaviourism: Over Time</h1>
+	</header>
+
+	<main>
+		
+		<div id="quizIntro"><h3>Welcome to the Bhaviorisum Quiz</h3>
+			<h4>If you would like to test what you have learned you can press the start button to begin the quiz</h4>
+			<button onclick="nextQuestion()">Start</button>
+		</div>
+		
+		<div id="quiz">
+			<h1 id="quizHeader">Question One</h1>
+		<form id="form">
+			1<input type="radio" name="question" value="0" onchange="selected(this.value)"><div class="question" id="answer1" >Question One</div>
+			<br>
+			2<input type="radio" name="question" value="1" onchange="selected(this.value)"><div class="question" id="answer2">Question Two</div>
+			<br>
+			3<input type="radio" name="question" value="2" onchange="selected(this.value)"><div class="question" id="answer3">Question Three</div>
+			<br>
+			4<input type="radio" name="question" value="3" onchange="selected(this.value)"><div class="question" id="answer4">Question Four</div>
+		</form>
+					<button id="quizButton" onclick="nextQuestion()"> Submit</button>
+			</div>
+		<div id="scoreScreen">
+		<h1>Your Final Score is</h1>
+			<h2 id="score">Unknown</h2>
+		</div>
+
+	</main>
+	<footer>
+		<h2>Want to show what you Learned? Try our <a href="quiz.html">Quiz</a></h2>
+		<h3 class="footerH3"><a href="reff.html">Reffences and Write Up</a></h3>
+	</footer>
+
+</body>
+
+</html>
+<!--
+
+-->
